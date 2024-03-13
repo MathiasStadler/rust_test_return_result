@@ -1,8 +1,12 @@
 // FROM HERE
 // https://doc.rust-lang.org/rust-by-example/error/multiple_error_types/boxing_errors.html
 
+
 use std::error;
+//use std::fmt::{Debug};
 use std::fmt;
+
+
 
 // Change the alias to use `Box<dyn error::Error>`.
 type Result<T> = std::result::Result<T, Box<dyn error::Error>>;
@@ -44,3 +48,19 @@ fn main() {
     print(double_first(empty));
     print(double_first(strings));
 }
+
+#[cfg(test)]
+mod tests {
+
+    use std::io::empty;
+    use super::*;
+    #[test]
+    fn should_return_error() {
+        
+        assert!(double_first(empty));
+    }
+}
+
+// https://stackoverflow.com/questions/57234140/how-to-assert-io-errors-in-rust
+
+// cargo  clippy --fix
